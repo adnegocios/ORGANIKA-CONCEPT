@@ -373,7 +373,7 @@ footer.notes ul{margin:6px 0 0; padding-left:18px;}
 <script src="chart.umd.min.js"></script>
 <script>
 (async function(){
-  const base = 'data/';
+  const base = '';
   const opts = { cache: 'no-cache' };
   function mount(id, obj){
     const s = document.createElement('script');
@@ -385,7 +385,7 @@ footer.notes ul{margin:6px 0 0; padding-left:18px;}
     const get = async (p) => { const r = await fetch(base + p, opts); if(!r.ok) throw new Error(p + ' ' + r.status); return r.json(); };
     const manifest = await get('manifest.json');
     const [ventas, compras] = await Promise.all(['ventas','compras'].map(async kind => {
-      const parts = await Promise.all(manifest[kind].map(m => get(kind + '/' + m + '.json')));
+      const parts = await Promise.all(manifest[kind].map(n => get(n)));
       return [].concat.apply([], parts);
     }));
     const [presupuesto, top10] = await Promise.all([get('presupuesto.json'), get('top10.json')]);
